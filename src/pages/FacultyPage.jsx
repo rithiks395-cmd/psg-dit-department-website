@@ -16,7 +16,14 @@ export function FacultyPage() {
   useEffect(() => {
     fetchFaculty()
       .then(res => {
-        if (res) {
+        if (Array.isArray(res)) {
+          const hodRow = res.find(r => r.is_hod === 1);
+          const teaching = res.filter(r => r.category === 'teaching' && r.is_hod !== 1);
+          const technical = res.filter(r => r.category === 'technical');
+          if (hodRow) setHod(hodRow);
+          if (teaching.length > 0) setTeachingStaff(teaching);
+          if (technical.length > 0) setTechnicalStaff(technical);
+        } else if (res) {
           if (res.hod) setHod(res.hod);
           if (res.teachingStaff && res.teachingStaff.length > 0) setTeachingStaff(res.teachingStaff);
           if (res.technicalStaff && res.technicalStaff.length > 0) setTechnicalStaff(res.technicalStaff);
@@ -24,7 +31,8 @@ export function FacultyPage() {
       })
       .catch(err => {
         console.error('Error loading faculty API:', err);
-        setError('Unable to load dynamic faculty information. Showing cached records.');
+        const detail = err && err.message ? ` (${err.message})` : '';
+        setError(`Unable to load dynamic faculty information${detail}. Showing cached records.`);
       })
       .finally(() => {
         setLoading(false);

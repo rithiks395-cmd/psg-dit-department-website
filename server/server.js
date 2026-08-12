@@ -23,22 +23,32 @@ const defaultOrigins = [
   'http://localhost:3000',
   'http://localhost:5000'
 ];
-const allowedOrigins = process.env.CORS_ORIGIN 
+const envOrigins = process.env.CORS_ORIGIN 
   ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
-  : defaultOrigins;
+  : [];
+const allowedOrigins = Array.from(new Set([...defaultOrigins, ...envOrigins]));
 
-app.use(cors({
+const corsOptions = {
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+    const cleanOrigin = origin.replace(/\/+$/, '');
+    const isAllowed = allowedOrigins.some(allowed => {
+      const cleanAllowed = allowed.replace(/\/+$/, '');
+      return cleanAllowed === '*' || cleanAllowed === cleanOrigin;
+    });
+    if (isAllowed) {
       return callback(null, true);
     }
-    return callback(null, true);
+    return callback(new Error(`CORS policy restriction: ${origin} not allowed`), false);
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 // Ensure uploads folder exists

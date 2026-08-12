@@ -1,20 +1,27 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'https://psg-dit-backend.onrender.com/api';
+const rawApiUrl = import.meta.env.VITE_API_URL || 'https://psg-dit-backend.onrender.com/api';
+const API_BASE = rawApiUrl.replace(/\/+$/, '');
 
 async function request(endpoint, options = {}) {
   try {
     const token = localStorage.getItem('dit_admin_token');
+    const customHeaders = options.headers || {};
     const headers = {
       'Content-Type': 'application/json',
-      ...options.headers
+      ...customHeaders
     };
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    const res = await fetch(`${API_BASE}${endpoint}`, {
-      headers,
-      ...options
-    });
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const url = `${API_BASE}${cleanEndpoint}`;
+
+    const fetchOptions = {
+      ...options,
+      headers
+    };
+
+    const res = await fetch(url, fetchOptions);
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.message || err.error || `HTTP error ${res.status}`);
@@ -99,8 +106,10 @@ export const uploadImage = async (file) => {
   });
   if (!res.ok) throw new Error('Failed to upload file');
   const data = await res.json();
-  const host = import.meta.env.VITE_API_HOST || API_BASE.replace(/\/api$/, '');
-  return `${host}${data.url}`;
+  const host = import.meta.env.VITE_API_HOST || API_BASE.replace(/\/api\/?$/, '');
+  const cleanHost = host.replace(/\/+$/, '');
+  const cleanUrl = data.url.startsWith('/') ? data.url : `/${data.url}`;
+  return `${cleanHost}${cleanUrl}`;
 };
 
 // Admin Auth
