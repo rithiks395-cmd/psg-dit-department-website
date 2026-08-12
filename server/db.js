@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import pg from 'pg';
 import { fileURLToPath } from 'url';
 
+const { Pool } = pg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dbFilePath = path.join(__dirname, 'dit_portal_db.json');
@@ -271,14 +273,55 @@ const defaultState = {
   ]
 };
 
+let pgPool = null;
+if (process.env.DATABASE_URL) {
+  try {
+    pgPool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+    });
+    console.log('PostgreSQL Connection Pool initialized with DATABASE_URL.');
+  } catch (err) {
+    console.error('Failed to initialize PostgreSQL connection pool:', err.message);
+  }
+}
+
 class DBManager {
   constructor() {
     this.init();
   }
 
-  init() {
-    if (!fs.existsSync(dbFilePath)) {
-      this.saveState(defaultState);
+  async init() {
+    if (pgPool) {
+      try {
+        await pgPool.query(`
+          CREATE TABLE IF NOT EXISTS faculty (
+            id VARCHAR(255) PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            designation VARCHAR(255),
+            degree VARCHAR(255),
+            qualification VARCHAR(255),
+            teaching_exp VARCHAR(255),
+            industry_exp VARCHAR(255),
+            publications INT DEFAULT 0,
+            specialization TEXT,
+            email VARCHAR(255),
+            phone VARCHAR(255),
+            bio TEXT,
+            image TEXT,
+            is_hod INT DEFAULT 0,
+            category VARCHAR(100),
+            profile_link TEXT
+          );
+        `);
+        console.log('PostgreSQL tables verified.');
+      } catch (err) {
+        console.warn('PostgreSQL table init check warning:', err.message);
+      }
+    } else {
+      if (!fs.existsSync(dbFilePath)) {
+        this.saveState(defaultState);
+      }
     }
   }
 
