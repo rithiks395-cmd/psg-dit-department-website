@@ -510,3 +510,79 @@ button {
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
 }
+
+/* ==========================================================================
+   ADMIN PORTAL MOBILE RESPONSIVE UTILITIES
+   ========================================================================== */
+.admin-grid-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+@media (max-width: 900px) {
+  .admin-grid-layout {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+    padding: 1rem !important;
+  }
+}
+
+.admin-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background-color: #0F172A;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 640px) {
+  .admin-header-flex {
+    padding: 0.85rem 1rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+}
+
+.admin-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+}
+
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(7, 10, 18, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.admin-modal-card {
+  width: 100%;
+  max-width: 650px;
+  padding: 2rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-top: 5px solid #00C2E8;
+  background-color: #0F172A;
+  border-radius: 14px;
+}
+
+@media (max-width: 640px) {
+  .admin-modal-card {
+    padding: 1.25rem !important;
+    max-height: 94vh !important;
+  }
+}

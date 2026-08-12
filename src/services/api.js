@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://psg-dit-backend.onrender.com/api';
 
 async function request(endpoint, options = {}) {
   try {
@@ -99,7 +99,8 @@ export const uploadImage = async (file) => {
   });
   if (!res.ok) throw new Error('Failed to upload file');
   const data = await res.json();
-  return `${import.meta.env.VITE_API_HOST || 'http://localhost:5000'}${data.url}`;
+  const host = import.meta.env.VITE_API_HOST || API_BASE.replace(/\/api$/, '');
+  return `${host}${data.url}`;
 };
 
 // Admin Auth

@@ -368,20 +368,20 @@ export function AdminPortal() {
   return (
     <div style={{ minHeight: '90vh', backgroundColor: '#070A12', color: '#F8FAFC' }}>
       {/* Top Admin Navigation Header */}
-      <div style={{ backgroundColor: '#0F172A', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div className="admin-header-flex">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
           <Link to="/" className="btn btn-outline btn-sm" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             <ArrowLeft size={16} /> View Public Website
           </Link>
           <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.15)', paddingLeft: '1rem' }}>
-            <h1 style={{ fontSize: '1.25rem', fontFamily: 'Outfit', fontWeight: 800, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <h1 style={{ fontSize: '1.25rem', fontFamily: 'Outfit', fontWeight: 800, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
               Department Content Manager <span className="badge badge-cyan" style={{ fontSize: '0.7rem' }}>REST CMS v1.0</span>
             </h1>
             <p style={{ fontSize: '0.775rem', color: '#94A3B8' }}>PSG Polytechnic College - Department of Information Technology</p>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
           <button onClick={loadAllData} className="btn btn-outline btn-sm" title="Refresh Live DB">
             <RefreshCw size={15} className={loading ? 'animate-spin' : ''} /> Refresh
           </button>
@@ -398,7 +398,7 @@ export function AdminPortal() {
       )}
 
       {/* Main Admin Content Layout */}
-      <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '2rem', display: 'grid', gridTemplateColumns: '240px 1fr', gap: '2rem' }}>
+      <div className="admin-grid-layout">
         
         {/* Sidebar Nav */}
         <div className="glass-card" style={{ padding: '1rem', height: 'fit-content' }}>
@@ -505,7 +505,7 @@ export function AdminPortal() {
                 </button>
               </div>
 
-              <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto' }}>
+              <div className="glass-card admin-table-container" style={{ padding: '1rem' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', color: '#94A3B8' }}>
@@ -568,19 +568,20 @@ export function AdminPortal() {
               </div>
 
               {/* Semester Filter Tabs */}
-              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', overflowX: 'auto', paddingBottom: '0.5rem', WebkitOverflowScrolling: 'touch' }}>
                 {['s1', 's2', 's3', 's4', 's5', 's6'].map((sem, idx) => (
                   <button
                     key={sem}
                     onClick={() => setSemFilter(sem)}
                     className={`btn btn-sm ${semFilter === sem ? 'btn-primary' : 'btn-outline'}`}
+                    style={{ flexShrink: 0 }}
                   >
                     Semester {idx + 1}
                   </button>
                 ))}
               </div>
 
-              <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto' }}>
+              <div className="glass-card admin-table-container" style={{ padding: '1rem' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', color: '#94A3B8' }}>
@@ -763,7 +764,7 @@ export function AdminPortal() {
                 <button onClick={() => openModal()} className="btn btn-primary"><Plus size={16} /> Add Calendar Event</button>
               </div>
 
-              <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto' }}>
+              <div className="glass-card admin-table-container" style={{ padding: '1rem' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', color: '#94A3B8' }}>
@@ -831,8 +832,8 @@ export function AdminPortal() {
 
       {/* FORM EDIT / ADD MODAL */}
       {isModalOpen && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(7, 10, 18, 0.85)', backdropFilter: 'blur(8px)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
-          <div className="glass-card" style={{ width: '100%', maxWidth: '650px', padding: '2rem', maxHeight: '90vh', overflowY: 'auto', borderTop: '5px solid #00C2E8' }}>
+        <div className="admin-modal-overlay">
+          <div className="admin-modal-card">
             <h3 style={{ fontSize: '1.35rem', color: '#FFFFFF', fontFamily: 'Outfit', fontWeight: 800, marginBottom: '1.5rem' }}>
               {editingItem ? 'Edit Item' : 'Add New Entry'} - {activeTab.toUpperCase()}
             </h3>
