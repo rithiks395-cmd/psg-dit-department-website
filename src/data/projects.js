@@ -1,0 +1,90 @@
+export const projectsData = {
+  notice: "Department Student Project Showcase – Representative capstone & mini-project models developed in Information Technology labs.",
+  categories: ["All", "Web Development", "AI/ML", "IoT", "Mobile", "Cybersecurity"],
+  projects: [
+    {
+      id: "proj-1",
+      title: "Autonomous Agricultural Spraying Drone with Computer Vision",
+      category: "IoT",
+      semester: "Semester 6",
+      batch: "2021-2024",
+      students: ["Saravanapriyan S", "Sharvesh K", "Jeikeshav S"],
+      guide: "Mr. N. Ravi",
+      technologies: ["Raspberry Pi", "Pixhawk", "Python", "OpenCV", "YOLOv8"],
+      description: "An autonomous quadcopter drone capable of detecting crop disease spots using edge computer vision and applying targeted micro-spraying in agricultural fields.",
+      image: "https://psgpolytech.ac.in/dept/images/DIT/facilities/UAVRearch1.JPG",
+      github: "https://github.com/psg-dit/agri-drone-cv",
+      demo: "https://youtube.com"
+    },
+    {
+      id: "proj-2",
+      title: "Smart Campus IoT Energy Monitoring & Anomaly Detection System",
+      category: "IoT",
+      semester: "Semester 5",
+      batch: "2022-2025",
+      students: ["Deepak B", "Poornimaa V S", "Tejaswini M B"],
+      guide: "Ms. G. Aishwaryalakshmi",
+      technologies: ["ESP32", "MQTT", "Node-RED", "InfluxDB", "Grafana"],
+      description: "Real-time electrical current monitoring dashboard installed in department laboratories to track energy consumption, detect current surges, and automate light controls.",
+      image: "https://psgpolytech.ac.in/dept/images/DIT/facilities/DIT_LOT_LABimage.png",
+      github: "https://github.com/psg-dit/smart-energy-mon",
+      demo: "https://demo.psgpolytech.ac.in"
+    },
+    {
+      id: "proj-3",
+      title: "Student Academic Result Analytics & Predictive Churn Portal",
+      category: "AI/ML",
+      semester: "Semester 6",
+      batch: "2021-2024",
+      students: ["Lakshman Dev V K", "Renuka Devi K R", "Poojitha P"],
+      guide: "Ms. G. Aishwaryalakshmi",
+      technologies: ["Python", "Flask", "Scikit-Learn", "React.js", "Chart.js"],
+      description: "Data analytics platform predicting student academic performance trends across 6 semesters and alerting faculty advisors for early intervention.",
+      image: "https://psgpolytech.ac.in/dept/images/DIT/facilities/itlab.jpg",
+      github: "https://github.com/psg-dit/student-analytics",
+      demo: "https://demo.psgpolytech.ac.in"
+    },
+    {
+      id: "proj-4",
+      title: "AR-Based Interactive Hardware Assembly Training Module",
+      category: "Mobile",
+      semester: "Semester 6",
+      batch: "2022-2025",
+      students: ["Dinesh Kumar G", "Sai Vigirdha B", "Dwarakeshi G"],
+      guide: "Mr. Y. Anandaraj",
+      technologies: ["Unity 3D", "Vuforia Engine", "C#", "Android SDK"],
+      description: "Augmented Reality mobile application allowing diploma students to point their smartphone at laptop motherboards to visualize component labels and repair guides in 3D.",
+      image: "https://psgpolytech.ac.in/dept/images/DIT/facilities/TP-ICFIX.jpg",
+      github: "https://github.com/psg-dit/ar-hardware-guide",
+      demo: "https://demo.psgpolytech.ac.in"
+    },
+    {
+      id: "proj-5",
+      title: "Decentralized Credential Verification System using Blockchain",
+      category: "Cybersecurity",
+      semester: "Semester 6",
+      batch: "2021-2024",
+      students: ["Jeya Shanmuga Pandian V", "Jeevesh S"],
+      guide: "Ms. R. Annie Karunya",
+      technologies: ["Ethereum", "Solidity", "Web3.js", "React.js", "IPFS"],
+      description: "Tamper-proof digital certificate generation and verification platform utilizing smart contracts and decentralized storage for polytechnic transcripts.",
+      image: "https://psgpolytech.ac.in/dept/images/DIT/facilities/MOU-digitaltech.jpg",
+      github: "https://github.com/psg-dit/cert-verify-blockchain",
+      demo: "https://demo.psgpolytech.ac.in"
+    },
+    {
+      id: "proj-6",
+      title: "Institutional E-Governance & Resource Allocation Portal",
+      category: "Web Development",
+      semester: "Semester 5",
+      batch: "2022-2025",
+      students: ["Siddharth Chandrasekar S", "Gayathri S"],
+      guide: "Ms. G. Aishwaryalakshmi",
+      technologies: ["React.js", "Node.js", "Express", "MongoDB", "TailwindCSS"],
+      description: "Departmental portal managing laboratory room bookings, seminar hall scheduling, equipment maintenance logs, and student project submissions.",
+      image: "https://psgpolytech.ac.in/dept/images/DIT/Group_photos/DIT_2022_2025.jpg",
+      github: "https://github.com/psg-dit/dept-portal",
+      demo: "https://demo.psgpolytech.ac.in"
+    }
+  ]
+};
